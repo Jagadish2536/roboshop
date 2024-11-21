@@ -13,11 +13,6 @@
   args:
     chdir: /app
 
-- name: set up the user service
-  ansible.builtin.copy:
-    src: user.service
-    dest: /etc/systemd/system/user.service
-
 - name: setting up the mongodb
   ansible.builtin.import_role:
     name: common

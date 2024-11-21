@@ -13,11 +13,6 @@
   args:
     chdir: /app
 
-- name: set up the catalogue service
-  ansible.builtin.copy:
-    src: catalogue.service
-    dest: /etc/systemd/system/catalogue.service
-
 - name: setting up the mongodb
   ansible.builtin.import_role:
     name: common

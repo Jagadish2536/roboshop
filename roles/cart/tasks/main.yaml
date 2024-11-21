@@ -13,11 +13,6 @@
   args:
     chdir: /app
 
-- name: set up the cart service
-  ansible.builtin.copy:
-    src: cart.service
-    dest: /etc/systemd/system/cart.service
-
 - name: restart the cart service
   ansible.builtin.import_role:
     name: common

@@ -13,11 +13,6 @@
   args:
     chdir: /app
 
-- name: set up the shipping service
-  ansible.builtin.copy:
-    src: shipping.service
-    dest: /etc/systemd/system/shipping.service
-
 - name: Installing the mysql
   ansible.builtin.package:
     name: mysql

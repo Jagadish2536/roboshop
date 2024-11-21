@@ -1,0 +1,11 @@
+webip: jagadish.online
+mongodbip: mongodb.jagadish.online
+shippingip: shipping.jagadish.online
+mysqlip: mysql.jagadish.online
+redisip: redis.jagadish.online
+catalogueip: catalogue.jagadish.online
+userip: user.jagadish.online
+cartip: cart.jagadish.online
+rabbitmqip: rabbitmq.jagadish.online
+paymentip: payment.jagadish.online
+dispatchip: dispatch.jagadish.online
