@@ -16,7 +16,7 @@
 - name: Loading the schema
   ansible.builtin.shell: mongo --host Mongodb.jagadish.online < /app/schema/{{server}}.js
   when: output1.stdout == "0" and server == "catalogue"
-  ignore_error: true
+  ignore_errors: true
 
 - name: checking the data in the mongodb from user
   ansible.builtin.command: mongo --host Mongodb.jagadish.online --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
@@ -26,4 +26,4 @@
 - name: Loading the schema from user
   ansible.builtin.command: mongo --host Mongodb.jagadish.online < /app/schema/user.js
   when: output2.stdout == "0" and server == "user"
-  ignore_error: true
+  ignore_errors: true
