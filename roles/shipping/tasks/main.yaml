@@ -24,7 +24,7 @@
     state: present
 
 - name: checking the citeis in the mysql exsit or not
-  ansible.builtin.command: mysql -h mysql.jagadish.online -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+  ansible.builtin.shell: mysql -h mysql.jagadish.online -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
   register: output
 
 - name: Loading the schema
