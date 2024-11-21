@@ -1,0 +1,27 @@
+- name: set up the mongodb repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Installing the mongodb
+  ansible.builtin.package:
+    name: mongodb-org-shell
+    state: present
+
+- name: checking the data in the mongodb from catalogue
+  ansible.builtin.shell: mongo --host Mongodb.jagadish.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+  register: output1
+  when: server == "catalogue"
+
+- name: Loading the schema
+  ansible.builtin.shell: mongo --host Mongodb.jagadish.online < /app/schema/{{server}}.js
+  when: output1.stdout == "0" and server == "catalogue"
+
+- name: checking the data in the mongodb from user
+  ansible.builtin.command: mongo --host Mongodb.jagadish.online --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+  register: output2
+  when: server == "user"
+
+- name: Loading the schema from user
+  ansible.builtin.command: mongo --host Mongodb.jagadish.online < /app/schema/user.js
+  when: output2.stdout == "0" and server == "user"

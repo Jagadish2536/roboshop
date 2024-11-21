@@ -1,0 +1,29 @@
+- name: enabling and installing the nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
+
+- name: Adding the user
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: useradd
+
+- name: installing the dependies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
+
+- name: set up the user service
+  ansible.builtin.copy:
+    src: user.service
+    dest: /etc/systemd/system/user.service
+
+- name: setting up the mongodb
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: mongodb
+
+- name: restart the user service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemctl

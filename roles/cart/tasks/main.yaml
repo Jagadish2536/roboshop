@@ -1,0 +1,24 @@
+- name: enabling and installing the nodejs
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
+
+- name: Adding the user
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: useradd
+
+- name: installing the dependies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
+
+- name: set up the cart service
+  ansible.builtin.copy:
+    src: cart.service
+    dest: /etc/systemd/system/cart.service
+
+- name: restart the cart service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemctl

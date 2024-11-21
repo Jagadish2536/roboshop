@@ -1,0 +1,5 @@
+- name: "Setting up the {{server}}"
+  hosts: "{{server}}"
+  become: yes
+  roles:
+  - role: "{{server}}"

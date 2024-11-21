@@ -1,0 +1,28 @@
+- name: installing Python
+  ansible.builtin.dnf:
+    name: "{{item}}"
+    state: present
+  loop:
+    - python3
+    - gcc
+    - python3-devel
+
+- name: Adding the user
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: useradd
+
+- name: install the dependies
+  ansible.builtin.command: pip3.6 install -r requirements.txt
+  args:
+    chdir: /app
+
+- name: copy the service
+  ansible.builtin.copy:
+    src: payment.service
+    dest: /etc/systemd/system/payment.service
+
+- name: restart the payment service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemctl
