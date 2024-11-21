@@ -1,5 +1,7 @@
 - name: "Setting up the {{server}}"
   hosts: "{{server}}"
   become: yes
+  vars:
+    mysql_password: RoboShop@1
   roles:
   - role: "{{server}}"
