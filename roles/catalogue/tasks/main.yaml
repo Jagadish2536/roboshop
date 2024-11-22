@@ -22,8 +22,3 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: systemctl
-
-- name: restart the catalogue service
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: deploy

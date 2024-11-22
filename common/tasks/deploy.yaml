@@ -2,41 +2,36 @@
   tags:
   - deploy
   ansible.builtin.service:
-    name: "{{server}}"
+    name: nginx
     state: stopped
 
 - name: deleting the old code
   tags:
   - deploy
   ansible.builtin.file:
-    path: /app/*
+    path: /usr/share/nginx/html
     state: absent
 
 - name: Downloading new code files
   tags:
   - deploy
-  ansible.builtin.get_url:
-    url: "https://roboshop-builds.s3.amazonaws.com/{{server}}.zip"
-    dest: /tmp
+  ansible.builtin.git:
+    repo: "https://github.com/Jagadish2536/web.git"
+    dest: /home/centos/web
+    update: yes
+    version: main
 
-- name: Unarchive the files
+- name: coping the files the files
   tags:
   - deploy
-  ansible.builtin.unarchive:
-    src: "/tmp/{{server}}.zip"
-    dest: /app
+  ansible.builtin.copy:
+    src: /home/centos/web/html/
+    dest: /usr/share/nginx/html
     remote_src: yes
-
-- name: installing the new code
-  tags:
-  - deploy
-  ansible.builtin.command: npm install
-  args:
-    chdir: /app
 
 - name: "restart the {{server}}"
   tags:
   - deploy
   ansible.builtin.service:
-    name: "{{server}}"
+    name: nginx
     state: restarted
