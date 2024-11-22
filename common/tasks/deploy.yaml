@@ -12,10 +12,15 @@
     path: /usr/share/nginx/html
     state: absent
 
-- name: Downloading new code files
+- name: change new code files
   tags:
   - deploy
-  ansible.builtin.shell: cd /home/centos/web ; git pull
+  ansible.builtin.shell: cd /home/centos/web
+
+- name: pull new code files
+  tags:
+  - deploy
+  ansible.builtin.shell: git pull
 
 - name: coping the files the files
   tags:
