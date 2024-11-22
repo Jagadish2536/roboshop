@@ -15,11 +15,7 @@
 - name: Downloading new code files
   tags:
   - deploy
-  ansible.builtin.git:
-    repo: https://github.com/Jagadish2536/web.git
-    dest: /home/centos/web/
-    update: yes
-    version: main
+  ansible.builtin.shell: cd /home/centos/web/ ; git pull
 
 - name: coping the files the files
   tags:
