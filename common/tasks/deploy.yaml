@@ -1,0 +1,42 @@
+- name: "stopping the {{server}}"
+  tasks:
+  - deploy
+  ansible.builtin.service:
+    name: "{{server}}"
+    state: stopped
+
+- name: deleting the old code
+  tags:
+  - deploy
+  ansible.builtin.file:
+    path: /app/*
+    state: absent
+
+- name: Downloading new code files
+  tags:
+  - deploy
+  ansible.builtin.get_url:
+    url: "https://roboshop-builds.s3.amazonaws.com/{{server}}.zip"
+    dest: /tmp
+
+- name: Unarchive the files
+  tags:
+  - deploy
+  ansible.builtin.unarchive:
+    src: "/tmp/{{server}}.zip"
+    dest: /app
+    remote_src: yes
+
+- name: installing the new code
+  tags:
+  - deploy
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
+
+- name: "stopping the {{server}}"
+  tasks:
+  - deploy
+  ansible.builtin.service:
+    name: "{{server}}"
+    state: restarted
