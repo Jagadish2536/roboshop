@@ -1,5 +1,5 @@
 - name: "stopping the {{server}}"
-  tasks:
+  tags:
   - deploy
   ansible.builtin.service:
     name: "{{server}}"
@@ -34,8 +34,8 @@
   args:
     chdir: /app
 
-- name: "stopping the {{server}}"
-  tasks:
+- name: "restart the {{server}}"
+  tags:
   - deploy
   ansible.builtin.service:
     name: "{{server}}"
