@@ -15,12 +15,9 @@
 - name: change new code files
   tags:
   - deploy
-  ansible.builtin.shell: cd /home/centos/web
-
-- name: pull new code files
-  tags:
-  - deploy
   ansible.builtin.shell: git pull
+  args:
+    chdir: /home/centos/web
 
 - name: coping the files the files
   tags:
