@@ -15,7 +15,7 @@
 - name: Downloading new code files
   tags:
   - deploy
-  ansible.builtin.shell: cd /home/centos/web/ ; git pull
+  ansible.builtin.shell: cd /home/centos/web
 
 - name: coping the files the files
   tags:
