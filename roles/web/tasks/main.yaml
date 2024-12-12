@@ -22,7 +22,7 @@
 - name: unarchiving the Files
   ansible.builtin.unarchive:
     src: /tmp/web.zip
-    dest: /usr/share/nginx/html
+    dest: /usr/share/nginx/html/
     remote_src: yes
 
 - name: Copying the roboshop.conf
